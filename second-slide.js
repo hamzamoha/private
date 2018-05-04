@@ -1,6 +1,6 @@
 var gens = document.getElementById('genius-slide');
 var xwidth = document.documentElement.clientWidth;
-var l = xwidth;
+var l = 0;
 var loopp = 1;
 gens.style.width = maxres*xwidth+'px';
 for(i=0;i<gens.children.length;i++){
