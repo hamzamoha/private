@@ -13,7 +13,7 @@ function mycallback(json) {
 	var start = srcatr+6;
 	var end = content.indexOf('"',start);
 	var src = content.substring(start,end);
-	var thmb = src;
+	var thumb = src;
     }
     else {
         var sthumbnailurl = x[i].media$thumbnail.url;
