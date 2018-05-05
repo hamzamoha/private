@@ -6,7 +6,7 @@ function mycallback(json) {
           break;
         }
       }
-    if(x[i].media$thumbnail.url==(null || undefined)){
+    if(x[i].media$thumbnail==(null || undefined)){
     	var content = x[i].content.$t;
 	var imgtag = content.indexOf('<img');
 	var srcatr = content.indexOf(' src=',imgtag);
