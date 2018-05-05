@@ -6,8 +6,8 @@ function mycallback(json) {
           break;
         }
       }
-	  var sthumbnailurl = json.feed.entry[i].media$thumbnail.url;
-	  var thumb = sthumbnailurl.replace('s72-c','s1600');
+	  //var sthumbnailurl = json.feed.entry[i].media$thumbnail.url;
+	  //var thumb = sthumbnailurl.replace('s72-c','s1600');
       var postTitle = json.feed.entry[i].title.$t;
       //var postSummary = json.feed.entry[i].summary.$t;
       var item ='<div id="post"><div id="picture"><img src=' + /*thumb*/'' + '><div id="cover"></div></div><div id="title">' + postTitle + '</div><div id="read-more"><a href=' + postUrl + '>Read more</a></div></div>';
