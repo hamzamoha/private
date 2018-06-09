@@ -1,0 +1,82 @@
+#genius-slide {
+    width:100%;
+    margin:0 auto;
+    text-align:center;
+    height:600px;
+    overflow:hidden;
+    position:relative;
+	transition:1s;
+}
+
+#genius-slide #picture {
+    display:block;
+    overflow:hidden;
+    height:100%;
+    position:absolute;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    z-index:-1;
+}
+
+#genius-slide img {
+    margin:0;
+    height:600px;
+    width:100%;
+    object-fit:cover;
+}
+
+#genius-slide #cover {
+    width:100%;
+    display:block;
+    height:600px;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    position:absolute;
+    background:rgba(0,0,0,0.25);
+    z-index:0;
+}
+
+#genius-slide #post {
+    display:inline-block;
+    width:100%;
+    height:600px;
+    overflow:hidden;
+    position:relative;
+}
+
+#genius-slide #title {
+    text-align:center;
+    width:500px;
+    margin:0 auto;
+    padding:80px 0;
+    font-size:50px;
+    color:#FFFFFF;
+    overflow:hidden;
+    font-family:treexil;
+    line-height:65px;
+    max-height:260px;
+	text-shadow:0 0 3px #2f2f2f;
+}
+
+#genius-slide #read-more {
+	margin:0;
+}
+#genius-slide #read-more a {
+	display:block;
+	font-weight:bold;
+	width:250px;
+	text-align:center;
+	margin:0 auto;
+	padding:20px 0;
+	box-shadow:inset 0 0 0px 1.5px white;
+	color:white;
+	transition:all .6s;
+}
+#genius-slide #read-more a:hover {
+	background:white;
+	color:black;
+}
