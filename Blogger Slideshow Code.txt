@@ -1,0 +1,30 @@
+
+<!-- Slideshow Start -->
+<b:if cond='data:blog.pageType == &quot;index&quot;'>
+<div id='genius-slide'>
+<script>
+var blogurl='geniuses-arabs.blogspot.com';
+var maxres=3;
+</script>
+<script src='https://rawgit.com/hamzamoha/private/master/slideshow-blogger.js'/>
+</div>
+<script>
+var n=1,l=0,pouse=0;
+function lop(){
+	var gens = $('#genius-slide');
+	var xwidth = $(document).width();
+	l=n*xwidth;
+	gens.width(xwidth*maxres+'px');
+	gens.children('#post').width(xwidth+'px');
+	gens.css({&quot;-webkit-transform&quot;:&quot;translate(&quot;+l+&quot;px,0)&quot;, &quot;-ms-transform&quot;:&quot;translate(&quot;+l+&quot;px,0)&quot;, &quot;transform&quot;:&quot;translate(&quot;+l+&quot;px,0)&quot;});
+	if(n==maxres-1){n=0}else{n=n+1}
+	if(pouse==0){setInterval(lop,6000)}
+}
+$(document).ready(function(){
+	setInterval(lop,6000)
+})
+$(&quot;#genius-slide&quot;).mouseenter(function(){pouse=1});
+$(&quot;#genius-slide&quot;).mouseleave(function(){pouse=0;setInterval(lop,6000)});
+</script>
+</b:if>
+<!-- Slideshow End -->
