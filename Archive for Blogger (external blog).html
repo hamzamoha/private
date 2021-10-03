@@ -1,0 +1,86 @@
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Archive</title>
+        <link crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css' integrity='sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU' rel='stylesheet' />
+        <script crossorigin='anonymous' integrity='sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK' src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+        <script crossorigin='anonymous' integrity='sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp' src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js'></script>
+        <script crossorigin='anonymous' integrity='sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/' src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js'></script>
+    </head>
+
+    <body class="p-5">
+        <div class='col-md-8 mx-auto p-3 bg-light shadow'>
+            <div class='archive' id='archive'>
+                <ul class="nav flex-column p-3">
+                    <!-- EMPTY -->
+                </ul>
+            </div>
+            <script>
+                let posts_count = 0;
+                const MaxResults = 150;
+                let start = 1;
+                let MonthsArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                let blogurl = 'http://www.th3professional.com'
+
+                function GetArchive(res = null) {
+                    if (!res) {
+                        $('.scripts-for-archive').append(`<script src="${blogurl}/feeds/posts/default?alt=json&start-index=${start}&max-results=${MaxResults}&callback=GetArchive"/>`)
+                        return
+                    }
+                    let posts = res.feed.entry;
+                    for (let post of posts) {
+                        const post_date = new Date(post.published.$t);
+                        const parent_selector = "div.archive#archive > ul.nav.flex-column";
+                        const year_selector = `${parent_selector} .nav-item div#year${post_date.getFullYear()}`;
+                        const month_selector = `${year_selector} .nav .nav-item div#${MonthsArray[post_date.getMonth()]
+                        }${post_date.getFullYear()}`;
+                        if (!document.querySelector(year_selector)) {
+                            document.querySelector(parent_selector).innerHTML += `
+                            <li class="nav-item">
+                                <button class="nav-link h4 border-0 bg-transparent text-decoration-underline p-0" data-bs-toggle="collapse" data-bs-target="#year${post_date.getFullYear()}" aria-expanded="false">${post_date.getFullYear()}</button>
+                                <div class="collapse ps-3" id="year${post_date.getFullYear()}">
+                                    <ul class="nav flex-column"></ul>
+                                    </div>
+                                    </li>`;
+                        }
+                        if (!document.querySelector(month_selector)) {
+                            document.querySelector(`${year_selector} .nav`).innerHTML += `
+                                <li class="nav-item">
+                                    <button class="nav-link h5 border-0 bg-transparent p-0" data-bs-toggle="collapse" data-bs-target="#${MonthsArray[post_date.getMonth()]
+                                    }${post_date.getFullYear()}" aria-expanded="false">${MonthsArray[post_date.getMonth()]
+                                    }</button>
+                                    <div class="collapse ps-3" id="${MonthsArray[post_date.getMonth()]
+                                    }${post_date.getFullYear()}">
+                                    <ul class="nav flex-column"></ul>
+                                    </div>
+                                    </li>`;
+                        }
+                        document.querySelector(`${month_selector} ul.nav`).innerHTML += `
+                                <li class="nav-item"><a class="py-2 d-block" href="${post.link[2].href}">${post.title ? post.title.$t : "-- NO Title --"
+                                }</a></li>`;
+                        posts_count++;
+                    }
+                    if (parseInt(start) + parseInt(res.feed.entry.length) <= parseInt(res.feed.openSearch$totalResults.$t)) {
+                        start += MaxResults;
+                        $('.scripts-for-archive').append(`<script src="http://www.th3professional.com/feeds/posts/default?alt=json&start-index=${start}&max-results=${MaxResults}&callback=GetArchive"/>`);
+                    }
+                }
+                $(document).ready(() => {
+                    GetArchive();
+                });
+            </script>
+            <style>
+                .archive#archive button {
+                    color: #d26a69 !important;
+                }
+            </style>
+        </div>
+        <div class="scripts-for-archive">
+        </div>
+    </body>
+
+    </html>
